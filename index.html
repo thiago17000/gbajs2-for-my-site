@@ -306,6 +306,34 @@
 			const fullScreen = () => {
 				document.getElementById('screen').requestFullscreen();
 			};
+			function exportProperSave() {
+    // Access the raw save data
+    const saveData = gba.mmu.save.view;
+    if (!saveData || saveData.byteLength === 0) {
+        alert("No save data found. Make sure to save in-game first!");
+        return;
+    }
+
+    // Force the .sav extension and binary blob type
+    const blob = new Blob([saveData], { type: "application/octet-stream" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    
+    link.href = url;
+    link.download = "game_save.sav"; 
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+function importSaveIngame(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        gba.loadSavedataFromFile(file);
+        alert("Save imported! You may need to Reset or load from the in-game menu.");
+    };
+    reader.readAsArrayBuffer(file);
+}
 		</script>
 	</head>
 	<body>
