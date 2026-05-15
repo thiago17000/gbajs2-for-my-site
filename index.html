@@ -62,40 +62,39 @@
 
 					initMobile();
 
-					function initMobile() {
-                const map = {
-                    'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
-                    'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
-                    'btn-start': 'START', 'btn-select': 'SELECT'
-                };
+					/* --- MOBILE CONTROLS LOGIC --- */
+function initMobile() {
+    const map = {
+        'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
+        'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
+        'btn-start': 'START', 'btn-select': 'SELECT'
+    };
 
-                Object.keys(map).forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        const keyName = map[id];
-                        
-                        const handleInput = (isDown, e) => {
-                            e.preventDefault(); 
-                            if (gba && gba.keypad) {
-                                if (isDown) {
-                                    gba.keypad.keydown(gba.keypad[keyName]);
-                                } else {
-                                    gba.keypad.keyup(gba.keypad[keyName]);
-                                }
-                            }
-                        };
-
-                        // Use pointer events - superior for mobile
-                        el.addEventListener('pointerdown', (e) => handleInput(true, e));
-                        el.addEventListener('pointerup', (e) => handleInput(false, e));
-                        el.addEventListener('pointerleave', (e) => handleInput(false, e));
-                        
-                        // Fallback for older iOS
-                        el.addEventListener('touchstart', (e) => handleInput(true, e), {passive: false});
-                        el.addEventListener('touchend', (e) => handleInput(false, e), {passive: false});
+    Object.keys(map).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            const keyName = map[id];
+            const handleInput = (isDown, e) => {
+                if (e.cancelable) e.preventDefault(); 
+                if (gba && gba.keypad) {
+                    if (isDown) {
+                        gba.keypad.keydown(gba.keypad[keyName]);
+                        el.style.backgroundColor = "rgba(255, 255, 255, 0.5)"; // Light up
+                    } else {
+                        gba.keypad.keyup(gba.keypad[keyName]);
+                        el.style.backgroundColor = ""; // Turn off
                     }
-                });
-            }
+                }
+            };
+            // Support both touch and mouse/pointer
+            el.addEventListener('pointerdown', (e) => handleInput(true, e));
+            el.addEventListener('pointerup', (e) => handleInput(false, e));
+            el.addEventListener('pointerleave', (e) => handleInput(false, e));
+            el.addEventListener('touchstart', (e) => handleInput(true, e), {passive: false});
+            el.addEventListener('touchend', (e) => handleInput(false, e), {passive: false});
+        }
+    });
+}
 					if (!gba.audio.context) {
 						// Remove the sound box if sound isn't available
 						let soundbox = document.getElementById('sound');
@@ -370,43 +369,7 @@ function importSaveIngame(file) {
         alert("Save imported! You may need to Reset or load from the in-game menu.");
     };
     reader.readAsArrayBuffer(file);
-
-	// Add this inside window.onload
-function initMobile() {
-    // This mapping must match the IDs of your HTML buttons exactly
-    const map = {
-        'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
-        'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
-        'btn-start': 'START', 'btn-select': 'SELECT'
-    };
-
-    Object.keys(map).forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            // Prevent zooming and scrolling when touching buttons
-            const press = (e) => { 
-                e.preventDefault(); 
-                if (window.gba) window.gba.keypad.keydown(window.gba.keypad[map[id]]); 
-            };
-            const release = (e) => { 
-                e.preventDefault(); 
-                if (window.gba) window.gba.keypad.keyup(window.gba.keypad[map[id]]); 
-            };
-            
-            // Use pointer events - they work better for both touch and mouse
-            el.addEventListener('pointerdown', press);
-            el.addEventListener('pointerup', release);
-            el.addEventListener('pointerleave', release); // Stops button from sticking
-        }
-    });
-}
-// Make sure to call initMobile(); inside your window.onload function!
-
-// Add this inside your window.onload or at the end of the script
-const keys = ['UP', 'DOWN', 'LEFT', 'RIGHT', 'A', 'B', 'L', 'R', 'START', 'SELECT'];
-keys.forEach(k => bindTouch('btn-' + k.toLowerCase(), k));
-}
-
+	}
 		</script>
 	</head>
 	<body>
