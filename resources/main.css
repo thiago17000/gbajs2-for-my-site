@@ -9,13 +9,12 @@ body {
 	height: 100%;
 }
 .linktree-banner {
-    position: fixed;   /* Pins it to the screen */
-    top: 15px;         /* 15 pixels down from the top edge */
-    left: 15px;        /* 15 pixels in from the left edge */
-    width: 80px;       /* Set whatever size you want */
-    height: 80px;
-    image-rendering: pixelated; /* Keeps it sharp! */
-    z-index: 100;      /* Ensures it floats on top of the backgrounds */
+position: fixed;        /* Pins it to the screen so it floats */
+    top: 15px;              /* 15 pixels down from the top edge */
+    left: 15px;             /* 15 pixels in from the LEFT edge */
+    width: 200px;           /* Sets the exact width you want */
+    height: auto;           /* Automatically keeps the image's shape perfect */
+    z-index: 100;           /* Ensures it stays on top of the background */
         }
 
 button {
