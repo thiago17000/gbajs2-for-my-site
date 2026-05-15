@@ -372,8 +372,7 @@ ul#links li:not(:first-child)::before {
         border-radius: 10px !important;
         margin: 5px !important;
     }
-}
-#sound, #controls label {
+	#sound, #controls label {
     float: none !important;
     display: block !important;
     margin: 20px auto !important;
@@ -386,4 +385,5 @@ ul#links li:not(:first-child)::before {
     width: 100% !important;
     display: block;
     margin: 10px 0;
+}
 }
