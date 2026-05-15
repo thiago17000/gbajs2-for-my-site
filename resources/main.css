@@ -299,9 +299,8 @@ ul#links li:not(:first-child)::before {
 #sound p {
 	margin: 0;
 }
-/* Hide mobile controls by default (PC view) */
-/* 1. HIDE THE CONTROLS ON PC */
-/* Use the ID to ensure it overrides the default block display */
+
+<style>
 #mobile-controls {
     display: none !important;
 }
@@ -398,4 +397,5 @@ ul#links li:not(:first-child)::before {
         font-size: 12px;
         border-radius: 5px;
     }
+	     </style>
 }
