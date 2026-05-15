@@ -12,7 +12,7 @@ body {
 position: fixed;        /* Pins it to the screen so it floats */
     top: 15px;              /* 15 pixels down from the top edge */
     left: 15px;             /* 15 pixels in from the LEFT edge */
-    width: 200px;           /* Sets the exact width you want */
+    width: 100px;           /* Sets the exact width you want */
     height: auto;           /* Automatically keeps the image's shape perfect */
     z-index: 100;           /* Ensures it stays on top of the background */
         }
