@@ -300,7 +300,7 @@ ul#links li:not(:first-child)::before {
 	margin: 0;
 }
 
-<style>
+
 #mobile-controls {
     display: none !important;
 }
@@ -397,5 +397,4 @@ ul#links li:not(:first-child)::before {
         font-size: 12px;
         border-radius: 5px;
     }
-	     </style>
 }
