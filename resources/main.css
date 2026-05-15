@@ -301,100 +301,57 @@ ul#links li:not(:first-child)::before {
 }
 
 
+/* --- 1. RESET & HIDE FOR PC --- */
 #mobile-controls {
-    display: none !important;
+    display: none !important; /* Force hide on PC */
+    visibility: hidden;
 }
 
-/* 2. MOBILE OVERRIDES */
-@media only screen and (max-width: 800px) {
-    body {
-        /* Your main.css has overflow: hidden; we must change this 
-           so you can scroll down to see the buttons on a phone */
-        overflow-y: auto !important; 
-        height: auto;
-    }
-
+/* --- 2. THE MOBILE VIEW --- */
+/* We use a slightly wider query to catch tablets and phones */
+@media screen and (max-width: 1024px) {
+    
+    /* Reveal the controls */
     #mobile-controls {
         display: flex !important;
+        visibility: visible;
         flex-direction: column;
         align-items: center;
         width: 100%;
-        /* Position it below the absolute-positioned canvas */
-        margin-top: 450px; 
-        padding-bottom: 50px;
-        z-index: 99; /* Ensure buttons are clickable above other layers */
+        margin-top: 450px; /* Moves them below your absolute canvas */
+        padding-bottom: 60px;
     }
 
-    /* Hide PC elements that break the mobile layout */
+    /* Force the body to allow scrolling on mobile */
+    body {
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+
+    /* Hide the PC sidebars that take up too much space */
     #gameinfo, #instructions, #moreinfo, #rollover {
         display: none !important;
     }
 
-    /* Reset the #controls margin from your PC layout */
+    /* Reset your #controls logic from main.css */
     #controls {
         margin-right: 0 !important;
         width: 100% !important;
         height: auto !important;
-        position: relative;
+        float: none !important;
     }
 
-    /* Controller Styling */
-    .controller-row {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        max-width: 500px;
-        margin-bottom: 20px;
-    }
-
+    /* Button Styling */
     .touch-btn {
-        background: rgba(118, 84, 144, 0.9);
+        background-color: rgba(118, 84, 144, 0.9);
         border: 2px solid rgba(255, 200, 255, 0.5);
         color: white;
         font-weight: bold;
+        width: 60px;
+        height: 60px;
         touch-action: manipulation;
-        user-select: none;
-        -webkit-user-select: none;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-
-    .dpad {
-        display: grid;
-        grid-template-columns: repeat(3, 65px);
-        grid-template-rows: repeat(3, 65px);
-    }
-    
-    /* Mapping IDs to the Grid */
-    #btn-up { grid-column: 2; grid-row: 1; border-radius: 10px 10px 0 0; }
-    #btn-left { grid-column: 1; grid-row: 2; border-radius: 10px 0 0 10px; }
-    #btn-right { grid-column: 3; grid-row: 2; border-radius: 0 10px 10px 0; }
-    #btn-down { grid-column: 2; grid-row: 3; border-radius: 0 0 10px 10px; }
-
-    .action-group {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .circle-btn {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        font-size: 24px;
-    }
-
-    .small-btn-group {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .small-btn {
-        width: 80px;
-        height: 40px;
-        font-size: 12px;
-        border-radius: 5px;
     }
 }
