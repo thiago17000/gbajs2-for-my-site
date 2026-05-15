@@ -299,3 +299,11 @@ ul#links li:not(:first-child)::before {
 #sound p {
 	margin: 0;
 }
+<div class="save-controls">
+  <!-- Export Button -->
+  <button id="export-save">Download .sav</button>
+  
+  <!-- Import Button & Hidden Input -->
+  <button id="import-trigger">Upload .sav</button>
+  <input type="file" id="import-save" style="display:none" accept=".sav">
+</div>
