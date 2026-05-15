@@ -60,6 +60,8 @@
 
 					gba.setBios(biosBin);
 
+					initMobile();
+
 					if (!gba.audio.context) {
 						// Remove the sound box if sound isn't available
 						let soundbox = document.getElementById('sound');
