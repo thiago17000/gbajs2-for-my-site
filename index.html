@@ -394,7 +394,7 @@ function importSaveIngame(file) {
         <button onclick="document.getElementById('saveloader').click()">
             Upload .sav
         </button>
-        <input id="saveloader" type="file" accept=".sav" onchange="uploadSavedataPending(this.files[0]);" />
+        <input id="saveloader" type="file" accept=".sav,.srm" onchange="uploadSavedataPending(this.files[0]);" />
     </div>
 
     <div id="ingame" class="hidden">
@@ -412,7 +412,7 @@ function importSaveIngame(file) {
         <button onclick="document.getElementById('ingame-saveloader').click()">
             Import .sav
         </button>
-        <input id="ingame-saveloader" type="file" accept=".sav" style="display:none" onchange="importSaveIngame(this.files[0]);" />
+        <input id="ingame-saveloader" type="file" accept=".sav,.srm" style="display:none" onchange="importSaveIngame(this.files[0]);" />
 
         <button onclick="screenshot()">Screenshot</button>
         <button onclick="fullScreen()">Full screen</button>
