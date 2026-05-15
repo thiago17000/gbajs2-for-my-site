@@ -1,3 +1,9 @@
+site:https://thiago17000.github.io/gbajs2-for-my-site/
+
+todso os direitos a nintendo por criar o gba e as lindas memoria,e para gbajs2 e seus devs que possibilitaram isso tudo
+
+
+
 gbajs2 -- Community Fork
 ======
 
