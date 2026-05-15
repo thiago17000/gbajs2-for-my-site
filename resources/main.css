@@ -300,36 +300,102 @@ ul#links li:not(:first-child)::before {
 	margin: 0;
 }
 /* Hide mobile controls by default (PC view) */
-.mobile-only {
-    display: none;
+/* 1. HIDE THE CONTROLS ON PC */
+/* Use the ID to ensure it overrides the default block display */
+#mobile-controls {
+    display: none !important;
 }
 
-/* Show mobile controls only on screens smaller than 800px */
+/* 2. MOBILE OVERRIDES */
 @media only screen and (max-width: 800px) {
-    .mobile-only {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        padding: 20px;
-        user-select: none;
+    body {
+        /* Your main.css has overflow: hidden; we must change this 
+           so you can scroll down to see the buttons on a phone */
+        overflow-y: auto !important; 
+        height: auto;
     }
 
-    #gameinfo, #instructions {
-        display: none; /* Hide keyboard instructions on mobile */
+    #mobile-controls {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        /* Position it below the absolute-positioned canvas */
+        margin-top: 450px; 
+        padding-bottom: 50px;
+        z-index: 99; /* Ensure buttons are clickable above other layers */
+    }
+
+    /* Hide PC elements that break the mobile layout */
+    #gameinfo, #instructions, #moreinfo, #rollover {
+        display: none !important;
+    }
+
+    /* Reset the #controls margin from your PC layout */
+    #controls {
+        margin-right: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        position: relative;
+    }
+
+    /* Controller Styling */
+    .controller-row {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 20px;
     }
 
     .touch-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid white;
+        background: rgba(118, 84, 144, 0.9);
+        border: 2px solid rgba(255, 200, 255, 0.5);
         color: white;
-        padding: 15px;
         font-weight: bold;
-        touch-action: manipulation; /* Prevents zooming when tapping */
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .circle {
+    .dpad {
+        display: grid;
+        grid-template-columns: repeat(3, 65px);
+        grid-template-rows: repeat(3, 65px);
+    }
+    
+    /* Mapping IDs to the Grid */
+    #btn-up { grid-column: 2; grid-row: 1; border-radius: 10px 10px 0 0; }
+    #btn-left { grid-column: 1; grid-row: 2; border-radius: 10px 0 0 10px; }
+    #btn-right { grid-column: 3; grid-row: 2; border-radius: 0 10px 10px 0; }
+    #btn-down { grid-column: 2; grid-row: 3; border-radius: 0 0 10px 10px; }
+
+    .action-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .circle-btn {
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
-        width: 60px;
-        height: 60px;
+        font-size: 24px;
+    }
+
+    .small-btn-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .small-btn {
+        width: 80px;
+        height: 40px;
+        font-size: 12px;
+        border-radius: 5px;
     }
 }
