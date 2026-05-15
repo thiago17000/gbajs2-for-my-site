@@ -309,7 +309,7 @@ ul#links li:not(:first-child)::before {
 
 /* --- 2. THE MOBILE VIEW --- */
 /* We use a slightly wider query to catch tablets and phones */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
     
     /* Reveal the controls */
     #mobile-controls {
