@@ -373,3 +373,17 @@ ul#links li:not(:first-child)::before {
         margin: 5px !important;
     }
 }
+#sound, #controls label {
+    float: none !important;
+    display: block !important;
+    margin: 20px auto !important;
+    width: 80% !important;
+    position: static !important;
+    height: auto !important;
+}
+
+#sound input[type="range"] {
+    width: 100% !important;
+    display: block;
+    margin: 10px 0;
+}
