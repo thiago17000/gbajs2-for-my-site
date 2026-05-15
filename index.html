@@ -76,24 +76,22 @@
             
             const handleInput = (isDown, e) => {
                 e.preventDefault(); 
-                // CRITICAL: Ensure we target the 'gba' object correctly
-                const emulator = window.gba || gba;
-                
-                if (emulator && emulator.keypad) {
+                // Force check the global gba instance
+                if (gba && gba.keypad) {
                     if (isDown) {
-                        emulator.keypad.keydown(emulator.keypad[keyName]);
+                        gba.keypad.keydown(gba.keypad[keyName]);
                     } else {
-                        emulator.keypad.keyup(emulator.keypad[keyName]);
+                        gba.keypad.keyup(gba.keypad[keyName]);
                     }
                 }
             };
 
-            // Use Pointer Events for best mobile compatibility
-            el.addEventListener('pointerdown', (e) => handleInput(true, e));
-            el.addEventListener('pointerup', (e) => handleInput(false, e));
-            el.addEventListener('pointerleave', (e) => handleInput(false, e));
+            // Modern pointer events for mobile
+            el.addEventListener('pointerdown', (e) => handleInput(true, e), {passive: false});
+            el.addEventListener('pointerup', (e) => handleInput(false, e), {passive: false});
+            el.addEventListener('pointerleave', (e) => handleInput(false, e), {passive: false});
             
-            // Touch support for older iOS versions
+            // Fix for iOS Safari specific touch issues
             el.addEventListener('touchstart', (e) => handleInput(true, e), {passive: false});
             el.addEventListener('touchend', (e) => handleInput(false, e), {passive: false});
         }
