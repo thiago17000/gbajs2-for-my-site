@@ -310,80 +310,88 @@ ul#links li:not(:first-child)::before {
 /* --- 2. THE MOBILE VIEW --- */
 /* We use a slightly wider query to catch tablets and phones */
 @media screen and (max-width: 1024px) {
-    /* 1. RESET THE BACKGROUND */
+    /* 1. RESET THE BACKGROUND & LAYOUT */
     body {
-        background: #765490 !important; /* Remove the bg.png to stop it from scaling weirdly */
+        background: #765490 !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
         height: auto !important;
-        display: block !important;
-        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
-    /* 2. CENTER THE SCREEN */
+    /* 2. CENTER THE GAME SCREEN */
     #screen {
-        position: static !important;
-        margin: 20px auto !important;
-        width: 90vw !important; /* Fits to the phone width */
+        position: relative !important;
+        margin: 10px auto !important;
+        width: 95vw !important;
         max-width: 480px;
         height: auto !important;
         display: block !important;
+        z-index: 5;
     }
 
-    /* 3. KILL THE PC MARGINS (Critical Fix) */
-    #controls, #gameinfo, #instructions {
+    /* 3. FIX THE MOBILE CONTROLS (The D-Pad/Buttons) */
+    #mobile-controls {
+        display: flex !important;
+        visibility: visible !important;
+        flex-direction: column;
+        align-items: center;
+        width: 100% !important;
+        margin-top: 10px !important;
+        z-index: 100 !important; /* Forces buttons to the front */
+        pointer-events: auto !important; /* Ensures touches aren't ignored */
+    }
+
+    /* 4. RESET PC UI ELEMENTS (Sound, Pause, etc.) */
+    #controls {
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
         height: auto !important;
-        position: static !important;
-        display: block !important;
-        float: none !important;
-    }
-
-    /* 4. FIX THE PC BUTTONS (Select, Upload, etc.) */
-    #controls button, #controls label {
-        margin: 10px auto !important;
-        float: none !important;
-        display: inline-block !important; /* Puts them side-by-side if they fit */
-        width: auto !important;
-        min-width: 150px;
-    }
-
-    /* 5. ARRANGE THE TOUCH PAD */
-    #mobile-controls {
         display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        width: 100% !important;
-        margin-top: 20px !important;
-        visibility: visible !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        position: relative !important;
+        z-index: 10;
     }
 
-    /* Hide the sidebar stuff completely */
-    #moreinfo, #rollover, #instructions, #gameinfo {
+    #controls button, #controls label, #sound {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 2px solid rgba(255, 200, 255, 0.5) !important;
+        margin: 8px auto !important;
+        width: 80% !important;
+        max-width: 300px;
+        float: none !important;
+        position: static !important;
+    }
+
+    /* 5. SOUND SLIDER FIX */
+    #sound input[type="range"] {
+        width: 90% !important;
+        margin: 15px auto !important;
+        display: block;
+    }
+
+    /* 6. TOUCH BUTTON STYLE */
+    .touch-btn {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+        border: 2px solid #D3B2D9 !important;
+        color: white !important;
+        font-weight: bold;
+        width: 65px;
+        height: 65px;
+        touch-action: manipulation;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px !important;
+        font-size: 20px;
+    }
+
+    /* Hide PC Sidebars */
+    #moreinfo, #rollover, #instructions, #gameinfo, footer {
         display: none !important;
     }
-
-    /* Adjust the dpad/buttons so they aren't transparent circles */
-    .touch-btn {
-        background-color: rgba(0, 0, 0, 0.4) !important;
-        border: 2px solid white !important;
-        border-radius: 10px !important;
-        margin: 5px !important;
-    }
-	#sound, #controls label {
-    float: none !important;
-    display: block !important;
-    margin: 20px auto !important;
-    width: 80% !important;
-    position: static !important;
-    height: auto !important;
-}
-
-#sound input[type="range"] {
-    width: 100% !important;
-    display: block;
-    margin: 10px 0;
-}
 }
