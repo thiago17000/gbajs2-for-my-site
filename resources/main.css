@@ -8,6 +8,11 @@ body {
 	font-size: 15px;
 	height: 100%;
 }
+.linktree-banner {
+            display: block;
+            margin: 20px auto;
+            max-width: 200px; /* Adjust size for your Linktree GIF */
+        }
 
 button {
 	font-family: 'Calibri', 'Verdana', sans-serif;
