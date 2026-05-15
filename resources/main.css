@@ -310,66 +310,46 @@ ul#links li:not(:first-child)::before {
 /* --- 2. THE MOBILE VIEW --- */
 /* We use a slightly wider query to catch tablets and phones */
 @media screen and (max-width: 1024px) {
+    /* 1. Kill the 'fixed' feel */
     html, body {
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    /* 1. FIX THE SCREEN: This ensures the game shrinks to fit your phone width */
-    #screen {
         width: 100% !important;
-        height: auto !important; 
-        max-width: 480px; 
-        margin-top: 20px !important;
-        margin-bottom: 20px !important;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        position: static !important; /* Overrides the absolute positioning from PC */
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        position: relative !important;
     }
 
-    /* 2. FIX THE CONTROLS: Moves buttons directly under the screen */
+    /* 2. Reset the GBA Screen */
+    #screen {
+        position: relative !important; /* Overrides 'absolute' if it exists */
+        top: 0 !important;
+        margin: 10px auto !important; /* Centers it with tiny gap */
+        width: 95vw !important; /* Uses 95% of the screen width */
+        height: auto !important;
+        max-width: 480px;
+        display: block !important;
+    }
+
+    /* 3. Reset the Controls Section */
+    #controls {
+        position: relative !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 0 !important;
+    }
+
+    /* 4. Reset Mobile Controls Container */
     #mobile-controls {
         display: flex !important;
-        visibility: visible;
-        flex-direction: column;
-        align-items: center;
+        position: relative !important;
+        margin: 20px 0 !important; /* Space between screen and buttons */
         width: 100% !important;
-        margin-top: 10px !important;
-        position: static !important;
+        top: 0 !important;
     }
 
-    /* 3. LAYOUT CLEANUP */
-    body {
-        overflow-y: auto !important;
-        height: auto !important;
-    }
-
-    #gameinfo, #instructions, #moreinfo, #rollover {
+    /* 5. Hide PC clutter */
+    #gameinfo, #instructions, #moreinfo, #rollover, footer {
         display: none !important;
-    }
-
-    #controls {
-        margin-right: 0 !important;
-        width: 100% !important;
-        height: auto !important;
-        float: none !important;
-        position: static !important;
-    }
-
-    /* 4. BUTTON STYLING */
-    .touch-btn {
-        background-color: rgba(118, 84, 144, 0.9);
-        border: 2px solid rgba(255, 200, 255, 0.5);
-        color: white;
-        font-weight: bold;
-        width: 60px;
-        height: 60px;
-        touch-action: manipulation;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
-        -webkit-user-select: none;
     }
 }
