@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=no">
 		<title>gbajs2</title>
 		<link rel="stylesheet" href="resources/main.css" />
 		<script src="js/util.js"></script>
@@ -409,7 +408,6 @@ keys.forEach(k => bindTouch('btn-' + k.toLowerCase(), k));
     </div>
 
 	<div id="mobile-controls">
-    <!-- D-PAD and A/B Buttons -->
     <div class="controller-row">
         <div class="dpad">
             <button id="btn-up" class="touch-btn">↑</button>
@@ -419,10 +417,18 @@ keys.forEach(k => bindTouch('btn-' + k.toLowerCase(), k));
         </div>
 
         <div class="action-group">
-            <button id="btn-b" class="touch-btn" style="border-radius: 50%;">B</button>
-            <button id="btn-a" class="touch-btn" style="border-radius: 50%; margin-top: -20px;">A</button>
+            <button id="btn-b" class="touch-btn circle-btn">B</button>
+            <button id="btn-a" class="touch-btn circle-btn">A</button>
         </div>
     </div>
+
+    <div class="small-btn-group">
+        <button id="btn-l" class="touch-btn small-btn">L</button>
+        <button id="btn-select" class="touch-btn small-btn">SELECT</button>
+        <button id="btn-start" class="touch-btn small-btn">START</button>
+        <button id="btn-r" class="touch-btn small-btn">R</button>
+    </div>
+
 
     <!-- L/R and Start/Select -->
     <div class="small-btn-group">
