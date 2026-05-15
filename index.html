@@ -397,6 +397,31 @@ function importSaveIngame(file) {
         <input id="saveloader" type="file" accept=".sav,.srm" onchange="uploadSavedataPending(this.files[0]);" />
     </div>
 
+	<div id="mobile-controls">
+    <!-- D-PAD and A/B Buttons -->
+    <div class="controller-row">
+        <div class="dpad">
+            <button id="btn-up" class="touch-btn">↑</button>
+            <button id="btn-left" class="touch-btn">←</button>
+            <button id="btn-right" class="touch-btn">→</button>
+            <button id="btn-down" class="touch-btn">↓</button>
+        </div>
+
+        <div class="action-group">
+            <button id="btn-b" class="touch-btn" style="border-radius: 50%;">B</button>
+            <button id="btn-a" class="touch-btn" style="border-radius: 50%; margin-top: -20px;">A</button>
+        </div>
+    </div>
+
+    <!-- L/R and Start/Select -->
+    <div class="small-btn-group">
+        <button id="btn-l" class="touch-btn small-btn">L</button>
+        <button id="btn-select" class="touch-btn small-btn">SELECT</button>
+        <button id="btn-start" class="touch-btn small-btn">START</button>
+        <button id="btn-r" class="touch-btn small-btn">R</button>
+    </div>
+</div>
+
     <div id="ingame" class="hidden">
         <button id="pause" class="bigbutton" onclick="togglePause()">
             PAUSE
