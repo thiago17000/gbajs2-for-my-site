@@ -72,21 +72,36 @@
     Object.keys(map).forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            const press = (e) => { 
-                e.preventDefault(); 
-                if (window.gba) window.gba.keypad.keydown(window.gba.keypad[map[id]]); 
-            };
-            const release = (e) => { 
-                e.preventDefault(); 
-                if (window.gba) window.gba.keypad.keyup(window.gba.keypad[map[id]]); 
-            };
+            const keyName = map[id];
             
-            // Use pointer events for best compatibility
-			el.addEventListener('touchstart', press, {passive: false});
-            el.addEventListener('touchend', release, {passive: false});
-            el.addEventListener('pointerdown', press);
-            el.addEventListener('pointerup', release);
-            el.addEventListener('pointerleave', release);
+            // Shared function to handle input
+            const handleInput = (isDown, e) => {
+                e.preventDefault(); // STOPS SCROLLING/ZOOMING
+                
+                // Check if gba exists on window or locally
+                const emulator = window.gba || gba;
+                
+                if (emulator && emulator.keypad) {
+                    if (isDown) {
+                        emulator.keypad.keydown(emulator.keypad[keyName]);
+                        el.style.backgroundColor = "rgba(255,255,255,0.3)"; // Visual feedback
+                    } else {
+                        emulator.keypad.keyup(emulator.keypad[keyName]);
+                        el.style.backgroundColor = ""; // Reset visual feedback
+                    }
+                } else {
+                    console.error("GBA Emulator not found for button: " + id);
+                }
+            };
+
+            // Use Pointer Events for best mobile compatibility
+            el.addEventListener('pointerdown', (e) => handleInput(true, e));
+            el.addEventListener('pointerup', (e) => handleInput(false, e));
+            el.addEventListener('pointerleave', (e) => handleInput(false, e));
+            
+            // Extra safety for older mobile browsers
+            el.addEventListener('touchstart', (e) => handleInput(true, e), {passive: false});
+            el.addEventListener('touchend', (e) => handleInput(false, e), {passive: false});
         }
     });
 }
