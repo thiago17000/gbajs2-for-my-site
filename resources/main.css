@@ -388,6 +388,8 @@ ul#links li:not(:first-child)::before {
         justify-content: center;
         border-radius: 12px !important;
         font-size: 20px;
+		-webkit-tap-highlight-color: transparent; /* Removes the grey box on tap */
+        touch-action: none; /* Crucial: Stops the browser from stealing the touch */
     }
 
     /* Hide PC Sidebars */
