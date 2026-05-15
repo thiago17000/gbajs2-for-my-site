@@ -74,23 +74,17 @@
         if (el) {
             const keyName = map[id];
             
-            // Shared function to handle input
             const handleInput = (isDown, e) => {
-                e.preventDefault(); // STOPS SCROLLING/ZOOMING
-                
-                // Check if gba exists on window or locally
+                e.preventDefault(); 
+                // CRITICAL: Ensure we target the 'gba' object correctly
                 const emulator = window.gba || gba;
                 
                 if (emulator && emulator.keypad) {
                     if (isDown) {
                         emulator.keypad.keydown(emulator.keypad[keyName]);
-                        el.style.backgroundColor = "rgba(255,255,255,0.3)"; // Visual feedback
                     } else {
                         emulator.keypad.keyup(emulator.keypad[keyName]);
-                        el.style.backgroundColor = ""; // Reset visual feedback
                     }
-                } else {
-                    console.error("GBA Emulator not found for button: " + id);
                 }
             };
 
@@ -99,13 +93,12 @@
             el.addEventListener('pointerup', (e) => handleInput(false, e));
             el.addEventListener('pointerleave', (e) => handleInput(false, e));
             
-            // Extra safety for older mobile browsers
+            // Touch support for older iOS versions
             el.addEventListener('touchstart', (e) => handleInput(true, e), {passive: false});
             el.addEventListener('touchend', (e) => handleInput(false, e), {passive: false});
         }
     });
 }
-
 					if (!gba.audio.context) {
 						// Remove the sound box if sound isn't available
 						let soundbox = document.getElementById('sound');
