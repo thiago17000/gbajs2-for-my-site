@@ -334,6 +334,16 @@ function importSaveIngame(file) {
     };
     reader.readAsArrayBuffer(file);
 }
+function bindTouch(id, key) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('touchstart', (e) => { e.preventDefault(); gba.keypad.keydown(gba.keypad[key]); });
+    el.addEventListener('touchend', (e) => { e.preventDefault(); gba.keypad.keyup(gba.keypad[key]); });
+}
+
+// Add this inside your window.onload or at the end of the script
+const keys = ['UP', 'DOWN', 'LEFT', 'RIGHT', 'A', 'B', 'L', 'R', 'START', 'SELECT'];
+keys.forEach(k => bindTouch('btn-' + k.toLowerCase(), k));
 		</script>
 	</head>
 	<body>
