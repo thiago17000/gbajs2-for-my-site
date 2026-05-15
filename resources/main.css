@@ -310,46 +310,66 @@ ul#links li:not(:first-child)::before {
 /* --- 2. THE MOBILE VIEW --- */
 /* We use a slightly wider query to catch tablets and phones */
 @media screen and (max-width: 1024px) {
-    /* 1. Kill the 'fixed' feel */
-    html, body {
-        width: 100% !important;
-        height: auto !important;
-        overflow-x: hidden !important;
+    /* 1. RESET THE BACKGROUND */
+    body {
+        background: #765490 !important; /* Remove the bg.png to stop it from scaling weirdly */
         overflow-y: auto !important;
-        position: relative !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        display: block !important;
+        text-align: center !important;
     }
 
-    /* 2. Reset the GBA Screen */
+    /* 2. CENTER THE SCREEN */
     #screen {
-        position: relative !important; /* Overrides 'absolute' if it exists */
-        top: 0 !important;
-        margin: 10px auto !important; /* Centers it with tiny gap */
-        width: 95vw !important; /* Uses 95% of the screen width */
-        height: auto !important;
+        position: static !important;
+        margin: 20px auto !important;
+        width: 90vw !important; /* Fits to the phone width */
         max-width: 480px;
+        height: auto !important;
         display: block !important;
     }
 
-    /* 3. Reset the Controls Section */
-    #controls {
-        position: relative !important;
+    /* 3. KILL THE PC MARGINS (Critical Fix) */
+    #controls, #gameinfo, #instructions {
         margin: 0 !important;
+        padding: 0 !important;
         width: 100% !important;
         height: auto !important;
-        padding: 0 !important;
+        position: static !important;
+        display: block !important;
+        float: none !important;
     }
 
-    /* 4. Reset Mobile Controls Container */
+    /* 4. FIX THE PC BUTTONS (Select, Upload, etc.) */
+    #controls button, #controls label {
+        margin: 10px auto !important;
+        float: none !important;
+        display: inline-block !important; /* Puts them side-by-side if they fit */
+        width: auto !important;
+        min-width: 150px;
+    }
+
+    /* 5. ARRANGE THE TOUCH PAD */
     #mobile-controls {
         display: flex !important;
-        position: relative !important;
-        margin: 20px 0 !important; /* Space between screen and buttons */
+        flex-direction: column;
+        align-items: center;
         width: 100% !important;
-        top: 0 !important;
+        margin-top: 20px !important;
+        visibility: visible !important;
     }
 
-    /* 5. Hide PC clutter */
-    #gameinfo, #instructions, #moreinfo, #rollover, footer {
+    /* Hide the sidebar stuff completely */
+    #moreinfo, #rollover, #instructions, #gameinfo {
         display: none !important;
+    }
+
+    /* Adjust the dpad/buttons so they aren't transparent circles */
+    .touch-btn {
+        background-color: rgba(0, 0, 0, 0.4) !important;
+        border: 2px solid white !important;
+        border-radius: 10px !important;
+        margin: 5px !important;
     }
 }
