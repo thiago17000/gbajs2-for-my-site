@@ -360,17 +360,6 @@ function initMobile() {
     link.click();
     URL.revokeObjectURL(url);
 }
-
-function importSaveIngame(file) {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        gba.loadSavedataFromFile(file);
-        alert("Save imported! You may need to Reset or load from the in-game menu.");
-    };
-    reader.readAsArrayBuffer(file);
-} this is the original versio of that part of the code using this can you see the problem
-
 function importSaveIngame(file) {
     if (!file) return;
     const reader = new FileReader();
