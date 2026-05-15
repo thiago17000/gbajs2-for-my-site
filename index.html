@@ -370,6 +370,41 @@ function importSaveIngame(file) {
         alert("Save imported! You may need to Reset or load from the in-game menu.");
     };
     reader.readAsArrayBuffer(file);
+
+	// Add this inside window.onload
+function initMobile() {
+    // This mapping must match the IDs of your HTML buttons exactly
+    const map = {
+        'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
+        'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
+        'btn-start': 'START', 'btn-select': 'SELECT'
+    };
+
+    Object.keys(map).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            // Prevent zooming and scrolling when touching buttons
+            const press = (e) => { 
+                e.preventDefault(); 
+                if (window.gba) window.gba.keypad.keydown(window.gba.keypad[map[id]]); 
+            };
+            const release = (e) => { 
+                e.preventDefault(); 
+                if (window.gba) window.gba.keypad.keyup(window.gba.keypad[map[id]]); 
+            };
+            
+            // Use pointer events - they work better for both touch and mouse
+            el.addEventListener('pointerdown', press);
+            el.addEventListener('pointerup', release);
+            el.addEventListener('pointerleave', release); // Stops button from sticking
+        }
+    });
+}
+// Make sure to call initMobile(); inside your window.onload function!
+
+// Add this inside your window.onload or at the end of the script
+const keys = ['UP', 'DOWN', 'LEFT', 'RIGHT', 'A', 'B', 'L', 'R', 'START', 'SELECT'];
+keys.forEach(k => bindTouch('btn-' + k.toLowerCase(), k));
 }
 
 		</script>
