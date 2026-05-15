@@ -353,6 +353,7 @@ function initMobile() {
                 
     const romName = gba.rom ? gba.rom.filename.replace('.gba', '') : 'game';
     const fileName = romName + ".sav";
+				
     const blob = new Blob([saveData], { type: "application/octet-stream" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
