@@ -309,39 +309,55 @@ ul#links li:not(:first-child)::before {
 
 /* --- 2. THE MOBILE VIEW --- */
 /* We use a slightly wider query to catch tablets and phones */
-@media screen and (max-width: 768px) {
-    
-    /* Reveal the controls */
+@media screen and (max-width: 1024px) {
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* 1. FIX THE SCREEN: This ensures the game shrinks to fit your phone width */
+    #screen {
+        width: 100% !important;
+        height: auto !important; 
+        max-width: 480px; 
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        position: static !important; /* Overrides the absolute positioning from PC */
+    }
+
+    /* 2. FIX THE CONTROLS: Moves buttons directly under the screen */
     #mobile-controls {
         display: flex !important;
         visibility: visible;
         flex-direction: column;
         align-items: center;
-        width: 100%;
-        margin-top: 450px; /* Moves them below your absolute canvas */
-        padding-bottom: 60px;
+        width: 100% !important;
+        margin-top: 10px !important;
+        position: static !important;
     }
 
-    /* Force the body to allow scrolling on mobile */
+    /* 3. LAYOUT CLEANUP */
     body {
         overflow-y: auto !important;
         height: auto !important;
     }
 
-    /* Hide the PC sidebars that take up too much space */
     #gameinfo, #instructions, #moreinfo, #rollover {
         display: none !important;
     }
 
-    /* Reset your #controls logic from main.css */
     #controls {
         margin-right: 0 !important;
         width: 100% !important;
         height: auto !important;
         float: none !important;
+        position: static !important;
     }
 
-    /* Button Styling */
+    /* 4. BUTTON STYLING */
     .touch-btn {
         background-color: rgba(118, 84, 144, 0.9);
         border: 2px solid rgba(255, 200, 255, 0.5);
@@ -353,5 +369,7 @@ ul#links li:not(:first-child)::before {
         display: flex;
         align-items: center;
         justify-content: center;
+        user-select: none;
+        -webkit-user-select: none;
     }
 }
