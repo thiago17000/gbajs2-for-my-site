@@ -11,7 +11,7 @@ body {
 .linktree-banner {
     position: fixed;   /* Pins it to the screen */
     top: 15px;         /* 15 pixels down from the top edge */
-    right: 15px;        /* 15 pixels in from the left edge */
+    left: 15px;        /* 15 pixels in from the left edge */
     width: 80px;       /* Set whatever size you want */
     height: 80px;
     image-rendering: pixelated; /* Keeps it sharp! */
