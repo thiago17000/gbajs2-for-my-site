@@ -299,11 +299,37 @@ ul#links li:not(:first-child)::before {
 #sound p {
 	margin: 0;
 }
-<div class="save-controls">
-  <!-- Export Button -->
-  <button id="export-save">Download .sav</button>
-  
-  <!-- Import Button & Hidden Input -->
-  <button id="import-trigger">Upload .sav</button>
-  <input type="file" id="import-save" style="display:none" accept=".sav">
-</div>
+/* Hide mobile controls by default (PC view) */
+.mobile-only {
+    display: none;
+}
+
+/* Show mobile controls only on screens smaller than 800px */
+@media only screen and (max-width: 800px) {
+    .mobile-only {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px;
+        user-select: none;
+    }
+
+    #gameinfo, #instructions {
+        display: none; /* Hide keyboard instructions on mobile */
+    }
+
+    .touch-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid white;
+        color: white;
+        padding: 15px;
+        font-weight: bold;
+        touch-action: manipulation; /* Prevents zooming when tapping */
+    }
+
+    .circle {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+    }
+}
