@@ -339,6 +339,7 @@ function importSaveIngame(file) {
 }
 // Add this inside window.onload
 function initMobile() {
+    // This mapping must match the IDs of your HTML buttons exactly
     const map = {
         'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
         'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
@@ -348,14 +349,20 @@ function initMobile() {
     Object.keys(map).forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            const press = (e) => { e.preventDefault(); gba.keypad.keydown(gba.keypad[map[id]]); };
-            const release = (e) => { e.preventDefault(); gba.keypad.keyup(gba.keypad[map[id]]); };
+            // Prevent zooming and scrolling when touching buttons
+            const press = (e) => { 
+                e.preventDefault(); 
+                if (window.gba) window.gba.keypad.keydown(window.gba.keypad[map[id]]); 
+            };
+            const release = (e) => { 
+                e.preventDefault(); 
+                if (window.gba) window.gba.keypad.keyup(window.gba.keypad[map[id]]); 
+            };
             
-            el.addEventListener('touchstart', press, {passive: false});
-            el.addEventListener('touchend', release, {passive: false});
-            // Added mouse support so you can test if they work on your PC!
-            el.addEventListener('mousedown', press);
-            el.addEventListener('mouseup', release);
+            // Use pointer events - they work better for both touch and mouse
+            el.addEventListener('pointerdown', press);
+            el.addEventListener('pointerup', release);
+            el.addEventListener('pointerleave', release); // Stops button from sticking
         }
     });
 }
