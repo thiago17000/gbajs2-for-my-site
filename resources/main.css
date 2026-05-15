@@ -394,4 +394,49 @@ ul#links li:not(:first-child)::before {
     #moreinfo, #rollover, #instructions, #gameinfo, footer {
         display: none !important;
     }
+	.dpad {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .dpad-mid {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .controller-row {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .circle-btn {
+        border-radius: 50% !important;
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .small-btn-group {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .small-btn {
+        width: 80px !important;
+        height: 40px !important;
+        font-size: 12px !important;
+    }
+
+    /* Fix the Sound Slider touch area */
+    #sound {
+        background: rgba(0, 0, 0, 0.2) !important;
+        padding: 15px !important;
+        border-radius: 15px !important;
+        z-index: 110 !important; /* Higher than buttons */
+        pointer-events: auto !important;
+    }
 }
+
