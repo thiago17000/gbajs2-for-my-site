@@ -368,6 +368,34 @@ function importSaveIngame(file) {
     };
     reader.readAsArrayBuffer(file);
 }
+function loadQuickTestRom() {
+    let load = document.getElementById('select');
+    load.textContent = 'Fetching Test ROM...';
+    
+    // Change 'badapple.gba' if your file name is capitalized differently or in a folder
+    let romUrl = 'roms/badapple.gba';
+
+    // Fetch the file as binary data over your local network
+    fetch(romUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Convert the fetched data into a pseudo-file object that the emulator accepts
+            let file = new File([blob], "badapple.gba", { type: "application/octet-stream" });
+            console.log("Quick Test ROM fetched successfully. Booting...");
+            run(file);
+        })
+        .catch(error => {
+            console.error("Failed to auto-load test ROM:", error);
+            load.textContent = 'FETCH FAILED';
+            setTimeout(() => { load.textContent = 'SELECT'; }, 3000);
+            alert("Could not auto-load the test ROM. Make sure 'badapple.gba' is in your project folder and you are running a local server (like Live Server)!");
+        });
+}
 		</script>
 	</head>
 	<body>
@@ -423,9 +451,10 @@ function importSaveIngame(file) {
             SELECT
         </button>
         <input id="loader" type="file" accept=".gba" onchange="run(this.files[0]);" />
-
-
-        
+<div id="preload">
+		<button onclick="loadQuickTestRom()" style="background-color: #2b2b2b; color: #ff3333; border: 1px solid #ff3333;">
+			🎬 Run Bad Apple Test
+		</button>
         <!-- Improved Import for Pre-game -->
         <button onclick="document.getElementById('saveloader').click()">
             Upload .sav
