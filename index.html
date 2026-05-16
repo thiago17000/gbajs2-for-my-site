@@ -372,10 +372,8 @@ function loadQuickTestRom() {
     let load = document.getElementById('select');
     load.textContent = 'Fetching Test ROM...';
     
-    // Change 'badapple.gba' if your file name is capitalized differently or in a folder
-    let romUrl = 'roms/Touhou-BadApple!.gba';
+    let romUrl = 'roms/Touhou-BadApple!.gba'; 
 
-    // Fetch the file as binary data over your local network
     fetch(romUrl)
         .then(response => {
             if (!response.ok) {
@@ -384,16 +382,39 @@ function loadQuickTestRom() {
             return response.blob();
         })
         .then(blob => {
-            // Convert the fetched data into a pseudo-file object that the emulator accepts
-            let file = new File([blob], "badapple.gba", { type: "application/octet-stream" });
+            let file = new File([blob], "Touhou-BadApple!.gba", { type: "application/octet-stream" });
             console.log("Quick Test ROM fetched successfully. Booting...");
-            run(file);
+            
+            // --- THE FIX IS HERE ---
+            // Force the layout buttons to update and change states just like the "run" function does!
+            let pause = document.getElementById('pause');
+            if (pause) pause.textContent = 'PAUSE';
+            
+            // Execute the template's built-in transition animation
+            fadeOut('preload', 'ingame');
+            fadeOut('instructions', null, true);
+            // ------------------------
+
+            // Run the ROM file through the emulator core cleanly
+            gba.loadRomFromFile(file, function (result) {
+                if (result) {
+                    for (let i = 0; i < runCommands.length; ++i) {
+                        runCommands[i]();
+                    }
+                    runCommands = [];
+                    gba.runStable();
+                } else {
+                    if (load) load.textContent = 'FAILED';
+                }
+            });
         })
         .catch(error => {
             console.error("Failed to auto-load test ROM:", error);
-            load.textContent = 'FETCH FAILED';
-            setTimeout(() => { load.textContent = 'SELECT'; }, 3000);
-            alert("Could not auto-load the test ROM. Make sure 'badapple.gba' is in your project folder and you are running a local server (like Live Server)!");
+            if (load) {
+                load.textContent = 'FETCH FAILED';
+                setTimeout(() => { load.textContent = 'SELECT'; }, 3000);
+            }
+            alert("Could not auto-load the test ROM. Make sure 'roms/badapple.gba' exists and your local development server is running!");
         });
 }
 		</script>
