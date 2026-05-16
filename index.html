@@ -155,6 +155,38 @@ function initMobile() {
 					requestAnimationFrame(pollGamepad);
 				});
 			}
+			function startRebind(gbaButton) {
+    const buttonUi = document.getElementById(`key-${gbaButton}`);
+    buttonUi.innerText = "Press any key...";
+    buttonUi.style.color = "#ff0055";
+
+    // Create a temporary, single-use event listener for the next keypress
+    const captureKey = (e) => {
+        // Assign the new key to our profile configuration
+        userKeys[gbaButton] = e.key;
+        
+        // Update the UI text
+        buttonUi.innerText = e.key.toUpperCase();
+        buttonUi.style.color = "";
+        
+        // Save the setting to browser storage so they don't lose it on refresh!
+        localStorage.setItem('gbaUserKeys', JSON.stringify(userKeys));
+
+        // Kill this listener so normal gameplay can resume
+        window.removeEventListener("keydown", captureKey);
+    };
+
+    window.addEventListener("keydown", captureKey);
+}
+
+// On page load, load saved configuration preferences if they exist
+window.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem('gbaUserKeys');
+    if (saved) {
+        userKeys = JSON.parse(saved);
+        // Loop through and update UI text matching your saved choices...
+    }
+});
 
 			function fadeOut(id, nextId, kill) {
 				let e = document.getElementById(id);
