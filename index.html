@@ -114,6 +114,47 @@ function initMobile() {
 					dead.parentElement.removeChild(dead);
 				}
 			};
+			/* --- CONTROLLER / GAMEPAD API SUPPORT --- */
+			function initGamepadSupport() {
+				const gamepadMapping = {
+					0: 'A',         // Bottom Face Button
+					1: 'B',         // Right Face Button
+					8: 'SELECT',    // Select Button
+					9: 'START',     // Start Button
+					12: 'UP',       // D-Pad Up
+					13: 'DOWN',     // D-Pad Down
+					14: 'LEFT',     // D-Pad Left
+					15: 'RIGHT',    // D-Pad Right
+					4: 'L',         // Left Bumper
+					5: 'R'          // Right Bumper
+				};
+
+				function pollGamepad() {
+					const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+					const gp = gamepads[0]; // Intercepts primary controller channel
+
+					if (!gp || !gba || !gba.keypad) return;
+
+					Object.keys(gamepadMapping).forEach(index => {
+						const gbaButton = gamepadMapping[index];
+						if (gp.buttons[index]) {
+							const buttonPressed = gp.buttons[index].pressed;
+							if (buttonPressed) {
+								gba.keypad.keydown(gba.keypad[gbaButton]);
+							} else {
+								gba.keypad.keyup(gba.keypad[gbaButton]);
+							}
+						}
+					});
+
+					requestAnimationFrame(pollGamepad);
+				}
+
+				window.addEventListener("gamepadconnected", (e) => {
+					console.log("Gamepad configuration mapped successfully for:", e.gamepad.id);
+					requestAnimationFrame(pollGamepad);
+				});
+			}
 
 			function fadeOut(id, nextId, kill) {
 				let e = document.getElementById(id);
@@ -494,6 +535,12 @@ function importSaveIngame(file) {
 	<a href="https://linktr.ee/justsomerandom17000" target="_blank">
         <img src="images/reimu-dance.gif" alt="Visit my Linktree" class="linktree-banner">
     </a>
+
+		<div id="controls-settings">
+    <h3>Rebind Controls</h3>
+    <button onclick="startRebind('A')">Button A: <span id="key-A">Z</span></button>
+    <button onclick="startRebind('B')">Button B: <span id="key-B">X</span></button>
+    </div>
 			
 	    <div id="save-instructions" style="color: #ccc; font-size: 14px; text-align: center; margin-top: 5px; padding: 2px; border: none;">
     <strong>💡 Moving to another emulator?</strong><br>
