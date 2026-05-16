@@ -368,47 +368,8 @@ function importSaveIngame(file) {
     };
     reader.readAsArrayBuffer(file);
 }
-function loadQuickTestRom() {
-    let load = document.getElementById('select');
-    if (load) load.textContent = 'Fetching Test ROM...';
-    
-    let romUrl = 'roms/Touhou-BadApple!.gba'; 
 
-    fetch(romUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            let file = new File([blob], "Touhou-BadApple!.gba", { type: "application/octet-stream" });
-            console.log("Quick Test ROM fetched successfully. Booting...");
-            
-            let pause = document.getElementById('pause');
-            if (pause) pause.textContent = 'PAUSE';
-
-            gba.loadRomFromFile(file, function (result) {
-                if (result) {
-                    for (let i = 0; i < runCommands.length; ++i) {
-                        runCommands[i]();
-                    }
-                    runCommands = [];
-                    gba.runStable();
-                } else {
-                    if (load) load.textContent = 'FAILED';
-                }
-            });
-        })
-        .catch(error => {
-            console.error("Failed to auto-load test ROM:", error);
-            if (load) {
-                load.textContent = 'FETCH FAILED';
-                setTimeout(() => { load.textContent = 'SELECT'; }, 3000);
-            }
-            alert("Could not auto-load the test ROM. Make sure 'roms/Touhou-BadApple!.gba' exists and your local development server is running!");
-        });
-}		</script>
+	</script>
 	</head>
 	<body>
 		<canvas id="screen" width="480" height="320"></canvas>
