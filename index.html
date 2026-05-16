@@ -387,23 +387,6 @@ function loadQuickTestRom() {
             
             let pause = document.getElementById('pause');
             if (pause) pause.textContent = 'PAUSE';
-            
-            // --- THE FIXES ARE HERE ---
-            
-            // 1. Force the Test Button itself to vanish instantly
-            // We find its parent container div and hide it so it doesn't stay on screen
-            let testBtnContainer = document.querySelector('button[onclick="loadQuickTestRom()"]').parentElement;
-            if (testBtnContainer) {
-                testBtnContainer.style.display = 'none';
-            }
-
-            // 2. Instantly force the #ingame menu (with Sound/Volume sliders) to appear
-            let ingameMenu = document.getElementById('ingame');
-            if (ingameMenu) {
-                ingameMenu.removeAttribute('class'); // Removes "hidden" so it pops up immediately
-            }
-            
-            // --------------------------
 
             gba.loadRomFromFile(file, function (result) {
                 if (result) {
