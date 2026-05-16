@@ -442,9 +442,7 @@ function softRebootGBA() {
         </button>
         <input id="loader" type="file" accept=".gba" onchange="run(this.files[0]);" />
 
-		<button onclick="softRebootGBA()" style="padding: 10px; background-color: #4A5568; color: white; border: none; border-radius: 4px; cursor: pointer;">
-           🔄 Soft Reboot
-        </button>
+
         
         <!-- Improved Import for Pre-game -->
         <button onclick="document.getElementById('saveloader').click()">
@@ -498,6 +496,10 @@ function softRebootGBA() {
 
         <button onclick="screenshot()">Screenshot</button>
         <button onclick="fullScreen()">Full screen</button>
+
+		<button onclick="softRebootGBA()" style="padding: 10px; background-color: #4A5568; color: white; border: none; border-radius: 4px; cursor: pointer;">
+           🔄 Soft Reboot
+        </button>
         
         <label id="pixelated">
             <input type="checkbox" onchange="setPixelated(this.checked)" />
