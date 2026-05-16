@@ -478,9 +478,6 @@ function loadQuickTestRom() {
 			</table>
 		</section>
 		<section id="controls">
-		<button onclick="loadQuickTestRom()" style="background-color: #2b2b2b; color: #ff3333; border: 1px solid #ff3333; padding: 10px; cursor: pointer;">
-					🎬 Run Bad Apple Test
-		</button>
     <div id="preload">
         <button class="bigbutton" id="select" onclick="document.getElementById('loader').click()">
             SELECT
@@ -539,7 +536,10 @@ function loadQuickTestRom() {
 
         <button onclick="screenshot()">Screenshot</button>
         <button onclick="fullScreen()">Full screen</button>
-        
+		
+		<button onclick="loadQuickTestRom()" style="background-color: #2b2b2b; color: #ff3333; border: 1px solid #ff3333; padding: 10px; cursor: pointer;">
+					🎬 Run Bad Apple Test
+		</button>
         <label id="pixelated">
             <input type="checkbox" onchange="setPixelated(this.checked)" />
             <p>Pixelated</p>
