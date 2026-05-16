@@ -403,9 +403,6 @@ function loadQuickTestRom() {
                 ingameMenu.removeAttribute('class'); // Removes "hidden" so it pops up immediately
             }
             
-            // 3. Keep the original clean up transitions running for everything else
-            fadeOut('preload', null); // Just hide preload, don't worry about nextId delays
-            fadeOut('instructions', null, true);
             // --------------------------
 
             gba.loadRomFromFile(file, function (result) {
