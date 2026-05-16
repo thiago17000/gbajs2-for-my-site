@@ -369,6 +369,23 @@ function importSaveIngame(file) {
     };
     reader.readAsArrayBuffer(file);
 }
+function softRebootGBA() {
+    if (!gba || !gba.context) {
+        alert("No game running to reboot!");
+        return;
+    }
+
+    // 1. Force the memory manager to sync current game data
+    if (gba.mmu && gba.mmu.save && gba.mmu.save.onWrite) {
+        gba.mmu.save.onWrite();
+    }
+
+    // 2. Trigger the hardware reset sequence
+    // This re-runs the game from address 0x08000000 without wiping RAM
+    gba.reset(); 
+    
+    console.log("GBA Soft Reboot successful. Save data preserved.");
+}
 		</script>
 	</head>
 	<body>
@@ -424,6 +441,10 @@ function importSaveIngame(file) {
             SELECT
         </button>
         <input id="loader" type="file" accept=".gba" onchange="run(this.files[0]);" />
+
+		<button onclick="softRebootGBA()" style="padding: 10px; background-color: #4A5568; color: white; border: none; border-radius: 4px; cursor: pointer;">
+           🔄 Soft Reboot
+        </button>
         
         <!-- Improved Import for Pre-game -->
         <button onclick="document.getElementById('saveloader').click()">
