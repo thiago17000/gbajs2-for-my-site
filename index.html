@@ -369,37 +369,6 @@ function importSaveIngame(file) {
     };
     reader.readAsArrayBuffer(file);
 }
-function softRebootGBA() {
-    if (!gba || !gba.context) {
-        alert("No game running to reboot!");
-        return;
-    }
-	try {
-        // 1. Safely pause the emulator loop so it stops executing code mid-frame
-        if (gba.pause) {
-            gba.pause();
-        }
-
-        if (gba.mmu && gba.mmu.save && gba.mmu.save.onWrite) {
-            gba.mmu.save.onWrite();
-            console.log("Save state synced to memory.");
-        }
-
-    // 2. Trigger the hardware reset sequence
-    // This re-runs the game from address 0x08000000 without wiping RAM
-    gba.reset(); 
-		// 4. Clear out any stuck audio buffers that often cause crashes on reset
-        if (gba.audio && gba.audio.clear) {
-            gba.audio.clear();
-        }
-
-        // 5. Unpause and let the game start cleanly from the Game Boy Intro screen
-        if (gba.run) {
-            gba.run();
-        }
-    
-    console.log("GBA Soft Reboot successful. Save data preserved.");
-}
 		</script>
 	</head>
 	<body>
@@ -510,10 +479,6 @@ function softRebootGBA() {
 
         <button onclick="screenshot()">Screenshot</button>
         <button onclick="fullScreen()">Full screen</button>
-
-		<button onclick="softRebootGBA()">
-           🔄 Soft Reboot
-        </button>
         
         <label id="pixelated">
             <input type="checkbox" onchange="setPixelated(this.checked)" />
