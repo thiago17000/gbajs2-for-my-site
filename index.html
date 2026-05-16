@@ -467,15 +467,18 @@ function loadQuickTestRom() {
 			</table>
 		</section>
 		<section id="controls">
+		<button onclick="loadQuickTestRom()" style="background-color: #2b2b2b; color: #ff3333; border: 1px solid #ff3333; padding: 10px; cursor: pointer;">
+					🎬 Run Bad Apple Test
+		</button>
     <div id="preload">
         <button class="bigbutton" id="select" onclick="document.getElementById('loader').click()">
             SELECT
         </button>
         <input id="loader" type="file" accept=".gba" onchange="run(this.files[0]);" />
-<div id="preload">
-		<button onclick="loadQuickTestRom()" style="background-color: #2b2b2b; color: #ff3333; border: 1px solid #ff3333;">
-			🎬 Run Bad Apple Test
-		</button>
+<div id="loader">
+		<button onclick="loadQuickTestRom()" style="background-color: #2b2b2b; color: #ff3333; border: 1px solid #ff3333; padding: 10px; cursor: pointer;">
+					🎬 Run Bad Apple Test
+				</button>
         <!-- Improved Import for Pre-game -->
         <button onclick="document.getElementById('saveloader').click()">
             Upload .sav
