@@ -374,7 +374,7 @@ function loadQuickTestRom() {
     
     // Change 'badapple.gba' if your file name is capitalized differently or in a folder
     // Change this line inside the function:
-let romUrl = 'roms/Touhou-BadApple!';
+let romUrl = 'roms/Touhou-BadApple.!.gba';
 
     // Fetch the file as binary data over your local network
     fetch(romUrl)
@@ -386,7 +386,7 @@ let romUrl = 'roms/Touhou-BadApple!';
         })
         .then(blob => {
             // Convert the fetched data into a pseudo-file object that the emulator accepts
-            let file = new File([blob], "badapple.gba", { type: "application/octet-stream" });
+            let file = new File([blob], "Touhou-BadApple!.gba", { type: "application/octet-stream" });
             console.log("Quick Test ROM fetched successfully. Booting...");
             run(file);
         })
@@ -394,7 +394,7 @@ let romUrl = 'roms/Touhou-BadApple!';
             console.error("Failed to auto-load test ROM:", error);
             load.textContent = 'FETCH FAILED';
             setTimeout(() => { load.textContent = 'SELECT'; }, 3000);
-            alert("Could not auto-load the test ROM. Make sure 'badapple.gba' is in your project folder and you are running a local server (like Live Server)!");
+            alert("Could not auto-load the test ROM. Make sure 'Touhou-BadApple!.gba' is in your project folder and you are running a local server (like Live Server)!");
         });
 }
 		</script>
