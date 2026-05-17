@@ -23,7 +23,6 @@
 		<script src="resources/xhr.js"></script>
 		<script src="resources/biosbin.js"></script>
 
-
 		<script>
 			let gba;
 			let runCommands = [];
@@ -61,8 +60,60 @@
 
 					gba.setBios(biosBin);
 
-				
+					initMobile();
 
+					/* --- MOBILE CONTROLS LOGIC --- */
+function initMobile() {
+    const map = {
+        'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
+        'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
+        'btn-start': 'START', 'btn-select': 'SELECT'
+    };
+
+    Object.keys(map).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            const keyName = map[id];
+            const handleInput = (isDown, e) => {
+                if (e.cancelable) e.preventDefault(); 
+                if (gba && gba.keypad) {
+                    if (isDown) {
+                        gba.keypad.keydown(gba.keypad[keyName]);
+                        el.style.backgroundColor = "rgba(255, 255, 255, 0.5)"; // Light up
+                    } else {
+                        gba.keypad.keyup(gba.keypad[keyName]);
+                        el.style.backgroundColor = ""; // Turn off
+                    }
+                }
+            };
+            // Support both touch and mouse/pointer
+            el.addEventListener('pointerdown', (e) => handleInput(true, e));
+            el.addEventListener('pointerup', (e) => handleInput(false, e));
+            el.addEventListener('pointerleave', (e) => handleInput(false, e));
+            el.addEventListener('touchstart', (e) => handleInput(true, e), {passive: false});
+            el.addEventListener('touchend', (e) => handleInput(false, e), {passive: false});
+        }
+    });
+}
+					if (!gba.audio.context) {
+						// Remove the sound box if sound isn't available
+						let soundbox = document.getElementById('sound');
+						soundbox.parentElement.removeChild(soundbox);
+					}
+
+					if (
+						window.navigator.appName ===
+						'Microsoft Internet Explorer'
+					) {
+						// Remove the pixelated option if it doesn't work
+						let pixelatedBox = document.getElementById('pixelated');
+						pixelatedBox.parentElement.removeChild(pixelatedBox);
+					}
+				} else {
+					let dead = document.getElementById('controls');
+					dead.parentElement.removeChild(dead);
+				}
+			};
 			function fadeOut(id, nextId, kill) {
 				let e = document.getElementById(id);
 				let e2 = document.getElementById(nextId);
