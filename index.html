@@ -61,42 +61,7 @@
 
 					gba.setBios(biosBin);
 
-					initMobile();
-
-					/* --- MOBILE CONTROLS LOGIC --- */
-function initMobile() {
-				const map = {
-					'btn-up': 'UP', 'btn-down': 'DOWN', 'btn-left': 'LEFT', 'btn-right': 'RIGHT',
-					'btn-a': 'A', 'btn-b': 'B', 'btn-l': 'L', 'btn-r': 'R',
-					'btn-start': 'START', 'btn-select': 'SELECT'
-				};
-
-				Object.keys(map).forEach(id => {
-					const el = document.getElementById(id);
-					if (el) {
-						const keyName = map[id];
-						
-						const handleInput = (isDown, e) => {
-							if (e && e.cancelable) e.preventDefault(); 
-							if (gba && gba.keypad) {
-								if (isDown) {
-									gba.keypad.keydown(gba.keypad[keyName]);
-									el.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-								} else {
-									gba.keypad.keyup(gba.keypad[keyName]);
-									el.style.backgroundColor = "";
-								}
-							}
-						};
-
-						// PointerEvents handle both PC Mouse and Chrome Mobile inputs perfectly.
-						el.addEventListener('pointerdown', (e) => handleInput(true, e));
-						el.addEventListener('pointerup', (e) => handleInput(false, e));
-						el.addEventListener('pointerleave', (e) => handleInput(false, e));
-						el.addEventListener('pointercancel', (e) => handleInput(false, e));
-					}
-				});
-			}
+				
 
 			function fadeOut(id, nextId, kill) {
 				let e = document.getElementById(id);
